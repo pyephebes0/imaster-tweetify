@@ -1,14 +1,15 @@
-// src/routes/setting/+page.server.ts
 import type { PageServerLoad } from './$types';
-import { getSessionUserId } from '$lib/auth';
+import { getSessionUser } from '$lib/auth';
 import { redirect } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async (event) => {
-  const userId = getSessionUserId(event);
-
-  if (!userId) {
+  const user = await getSessionUser(event);
+  if (!user) {
     throw redirect(302, '/login');
   }
-
-  return {};
+  
+  // Return user data หรือ data อื่นๆที่ต้องใช้
+  return {
+    user
+  };
 };

@@ -1,12 +1,12 @@
 // src/routes/profile/[id]/+page.server.ts
 import type { PageServerLoad } from './$types';
-import { getSessionUserId } from '$lib/auth';
+import { getSessionUser } from '$lib/auth';
 import { getDb } from '$lib/db';
 import { ObjectId } from 'mongodb';
 import { redirect } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async (event) => {
-  const sessionUserId = getSessionUserId(event);
+  const sessionUserId = getSessionUser(event);
   const profileId = event.params.id;
 
   // ถ้ายังไม่ได้ login → redirect ไป login
